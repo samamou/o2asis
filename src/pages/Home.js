@@ -2,6 +2,8 @@ import React from 'react';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
 import Features from '../components/Features';
+import Benefits from '../components/Benefits';
+import HowItWorks from '../components/HowItWorks';
 import Footer from '../components/Footer';
 import '../styles/Home.css';
 
@@ -10,9 +12,8 @@ function Home() {
     <div className="home-background">
       <Header />
       <Hero />
-
-
-
+      <Benefits />
+      <HowItWorks />
       <Features />
       <Footer />
     </div>

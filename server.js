@@ -15,28 +15,16 @@ app.get('/', (req, res) => {
   res.send('Welcome to my app!');
 });
 
-//RETRIEVE DATA get request 
-// app.get('/api/sensorData', async (req, res) => {
-//   try {
-//     const kitId = 1011;
-//     const sensorName = 'Air';
-//     const response = await axios.get(
-//       `https://kits.teleagriculture.org/api/kits/${kitId}/${sensorName}/measurements?api_key=${apiKey}`
-//     );
-//     console.log(response.data);
-//     res.send(response.data);
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).send('Server Error');
-//   }
-// });
 
+// Get kit info including the latest measurement per sensor
 app.get('/api/sensorData', async (req, res) => {
   try {
     const kitId = 1011;
-    const response = await axios.get(
-      `https://kits.teleagriculture.org/api/kits/${kitId}/measurements?api_key=${apiKey}`
-    );
+    const response = await axios.get(`https://kits.teleagriculture.org/api/kits/${kitId}`, {
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+      },
+    });
     console.log(response.data);
     res.send(response.data);
   } catch (error) {
@@ -46,6 +34,9 @@ app.get('/api/sensorData', async (req, res) => {
 });
 
 
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
+
+
