@@ -11,7 +11,7 @@ import SensorDataSketch from '../components/SensorDataSketch';
 
 function PlantRoom() {
   const [sensorData, setSensorData] = useState(null);
-  const backendBaseURL = 'http://localhost:3000';
+  const backendBaseURL = 'http://localhost:3000'; //add this as an env variable. 
 
   const fetchData = () => {
     axios
@@ -37,49 +37,41 @@ function PlantRoom() {
   }, []);
 
   return (
-    <div className="plant-room-background">
-      <Header />
+    <div className="plant-room">
 
-      <div className="plant-room">
-        <h1 className="plant-room__title">Plant Room</h1>
-        {sensorData && (
-          <div className="sensor-data">
-            {Object.keys(sensorData).map((key) => (
-              <p key={key}>
-                {key}: {sensorData[key]}
-              </p>
-            ))}
+        <div className="plant-room__content">
+          <h1 className="plant-room__title"> </h1>
+          {sensorData && (
+            <div className="sensor-data">
+              {Object.keys(sensorData).map((key) => (
+                <p key={key}>
+                  {key}: {sensorData[key]}
+                </p>
+              ))}
+            </div>
+          )}
+          
+      
+          <div className="p5-container">
+            {/* <h2>Historical Data</h2> */}
+          
+          
+                    
+              {/* div that holds my p5 sketch that visualizes the data :) */}
+            
+                {sensorData && <SensorDataSketch sensorData={sensorData} />}
+            
+            
+            
           </div>
-        )}
 
-        {/* Add a graph or chart that shows historical data */}
-
-
-
-          {/* Replace the div with a beautiful p5 sketch that visualizes the data */}
-          <div className="p5-sketch">
-            {sensorData && <SensorDataSketch sensorData={sensorData} />}
-        
-
-
+          <div className="resources">
+          </div>
         </div>
 
-        <div className="historical-data">
-          <h2>Historical Data</h2>
-          {/* Replace this div with a chart or graph from a library like Chart.js */}
-
-          <div className="chart-placeholder">Chart goes here</div>
-        </div>
-
-        {/* Section that offers resources and tips for reducing indoor air pollution */}
-        <div className="resources">
-          <h2>Resources & Tips for Reducing Indoor Air Pollution</h2>
-          {/* Add articles, videos, or infographics here */}
-        </div>
+        <Footer />
       </div>
-
-      <Footer />
-    </div>
+      
   );
 }
 
