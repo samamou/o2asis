@@ -5,12 +5,7 @@ import Footer from '../components/Footer';
 function MyPlants() {
   return (
     <div>
-      
-      <section className="my-plants">
-        <h2>My Plants</h2>
-        <p>You have no plants yet.</p>
-      </section>
-      <Footer />
+
     </div>
   );
 }

@@ -1,44 +1,57 @@
 .home-background {
-  background-color: #F0F2F5;
+  /* background-color: #F0F2F5; */
 }
 
 .home {
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 80px 20px;
+  /* margin: 0 auto; */
 }
+
 
 .hero {
-  text-align: center;
-  margin: 80px 0;
-}
-
-.hero__title {
-  font-size: 3rem;
-  margin-bottom: 20px;
-}
-
-.hero__subtitle {
-  font-size: 1.5rem;
-  color: #7C7C7C;
-  margin-bottom: 40px;
-}
-
-.features {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  margin: 80px 0;
+  text-align: center;
+  height: 80vh;
+  
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  text-align: left;
+
 }
 
-.feature {
-  width: 300px;
-  padding: 20px;
-  margin-right: 20px;
-  background-color: #FFFFFF;
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+.hero h1 {
+  font-size: 4rem;
+  margin-bottom: 10px;
+  font-weight: 600;
 }
 
-.feature__title {
-  font-size: 1.5rem;
+.hero h2 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+  max-width: 660px;
+ }
+
+.cta-button {
+  font-size: 1.2rem;
+  background-color: #848484;
+  color: #fff;
+  padding: 10px 40px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.cta-button:hover {
+  background-color: #363636;
 }

@@ -4,8 +4,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  background-color: #f5f7f9;
+  /* min-height: 10vh; */
+  /* background-color: #f5f7f9; */
   font-family: 'Roboto', sans-serif;
 }
 
@@ -13,9 +13,8 @@
 .plant-room__content {
   display: flex; /* Add this line */
   flex-wrap: wrap; /* Add this line */
-  max-width: 1300px;
+  max-width: 1200px;
   width: 100%;
-  padding: 40px;
   gap: 20px; /* Add this line */
 }
 
@@ -25,16 +24,17 @@
   text-align: center;
   color: #333;
   margin-bottom: 2px;
+  padding: 40px;
   width: 100%; /* Add this line */
 }
 
 /* Sensor data container */
 .sensor-data {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   gap: 20px;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   flex: 1; /* Add this line */
 }
 
@@ -44,19 +44,18 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 1.1rem;
-  padding: 20px;
+  font-size: 1.0rem;
+  padding: 0px;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   height: 50px;
-
   text-align: center;
 }
 
 .sensor-data p span {
   font-weight: bold;
-  margin-top: 5px;
+  margin-top: 20px;
 }
 
 /* P5 canvas container */
@@ -65,7 +64,6 @@
   justify-content: center;
   align-items: center;
   flex: 1; /* Add this line */
-  
 }
 
 /* Add your other styles here */

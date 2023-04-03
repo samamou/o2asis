@@ -10,7 +10,7 @@ export default function SensorDataSketch({ sensorData }) {
 
   // Setup function initializes the p5.js sketch
   const setup = (p, canvasParentRef) => {
-    p.createCanvas(700, 700, p.WEBGL).parent(canvasParentRef);
+    p.createCanvas(500, 500, p.WEBGL).parent(canvasParentRef);
     p.colorMode(p.HSB, 360, 100, 100);
     p.noStroke();
   };
@@ -21,8 +21,7 @@ export default function SensorDataSketch({ sensorData }) {
   // Draw function renders the visualization
   const draw = (p) => {
     // Set background color and ambient light
-    p.background("#f5f7f9");
-    p.background(255);
+    p.background('rgba(255,255,255, 0)');
     p.ambientLight(60);
 
 
