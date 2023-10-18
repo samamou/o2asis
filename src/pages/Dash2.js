@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import '../styles/PlantRoom.css';
-import P5 from 'react-p5';
-import SensorDataSketch from '../components/SensorDataSketch';
 
-function Dashboard() {
+function Dash2() {
   const [sensorData, setSensorData] = useState(null);
   const backendBaseURL = 'http://localhost:3000';
 
@@ -15,8 +11,6 @@ function Dashboard() {
     axios
       .get(`${backendBaseURL}/api/sensorData`)
       .then((response) => {
-        console.log(response.data);
-        // Set sensorData directly to the response data
         setSensorData(response.data);
       })
       .catch((error) => {
@@ -27,9 +21,25 @@ function Dashboard() {
   useEffect(() => {
     fetchData();
     const intervalId = setInterval(fetchData, 10000);
-
     return () => clearInterval(intervalId);
   }, []);
+
+  const getSuggestions = () => {
+    if (!sensorData) return [];
+
+    const suggestions = [];
+    if (sensorData.gbHum < 30) {
+      suggestions.push('Consider using a humidifier to increase indoor humidity levels.');
+    }
+    if (sensorData.gbHum > 60) {
+      suggestions.push('Consider using a dehumidifier to decrease indoor humidity levels.');
+    }
+    if (sensorData.gbTemp > 24) {
+      suggestions.push('Consider using an air conditioner or fan to cool down the room.');
+    }
+    // Add more suggestions based on sensor readings
+    return suggestions;
+  };
 
   return (
     <div className="plant-room">
@@ -38,7 +48,7 @@ function Dashboard() {
         {sensorData && (
           <div className="sensor-data">
             {Object.entries(sensorData)
-              .filter(([key, value]) => value > 0 ) // Filter out sensor values that are -1
+              .filter(([key, value]) => value !== -1 && value !== -127)
               .map(([key, value]) => (
                 <p key={key}>
                   {key}: {value}
@@ -46,15 +56,15 @@ function Dashboard() {
               ))}
           </div>
         )}
-
-        <div className="p5-container">
-          {sensorData && <SensorDataSketch sensorData={sensorData} />}
+        <div className="resources">
+          <h1>Suggestions to Improve Air Quality</h1>
+          {getSuggestions().map((suggestion, index) => (
+            <p key={index}>{suggestion}</p>
+          ))}
         </div>
       </div>
-
-      <Footer />
     </div>
   );
 }
 
-export default Dashboard;
+export default Dash2;

@@ -17,14 +17,17 @@ function Header() {
             <Link to="/" className="nav__link">Home</Link>
           </li>
           <li className="nav__item">
-            <Link to="/dashboard" className="nav__link">Dashboard</Link>
+            <Link to="/dashboard" className="nav__link">Prototype 1</Link>
           </li>
           <li className="nav__item">
+            <Link to="/dash2" className="nav__link">Prototype 2</Link>
+          </li>
+          {/* <li className="nav__item">
             <Link to="/contact" className="nav__link">Contact</Link>
-          </li>
-          <li className="nav__item">
+          </li> */}
+          {/* <li className="nav__item">
             <Link to="/my-plants" className="nav__link">My Plants</Link>
-          </li>
+          </li> */}
         </ul>
       </nav>
     </header>

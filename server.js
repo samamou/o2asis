@@ -21,7 +21,23 @@ app.get('/', (req, res) => {
 
 // Get kit info including the latest measurement per sensor
 app.get('/api/sensorData', async (req, res) => {
-  // ... (rest of the code for /api/sensorData endpoint)
+  try {
+    const kitId = 1011;
+    const response = await axios.get(`https://kits.teleagriculture.org/api/kits/${kitId}`, {
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+      },
+    });
+    console.log(response.data);
+    const latestData = response.data.data.sensors.reduce((acc, sensor) => {
+      acc[sensor.name] = sensor.latest_measurement?.value;
+      return acc;
+    }, {});
+    res.send(latestData);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server Error');
+  }
 });
 
 app.listen(port, () => {

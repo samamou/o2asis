@@ -2,7 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import Home from './pages/Home';
-import Dashboard from './pages/Dashboard';
+import Dash1 from './pages/Dashboard';
+import Dash2 from './pages/Dash2';
 import Contact from './pages/Contact';
 import MyPlants from './pages/MyPlants';
 
@@ -16,15 +17,17 @@ function App() {
     <Router>
       <div className="App">
         <Header />
-
-        <Routes>
-          <Route path="/" exact element={<Home />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+        
+        <Routes> 
+          <Route path="/" exact element={<Home />}/>
+          <Route path="/dashboard" element={<Dash1 />} />
+          <Route path="/Dash2" element={<Dash2 />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/my-plants" element={<MyPlants />} />
         </Routes>
         
       </div>
+      
     </Router>
   );
 }

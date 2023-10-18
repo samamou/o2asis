@@ -1,10 +1,12 @@
+
+
 .home-background {
-  /* background-color: #F0F2F5; */
+  height: 100%;
+  
 }
 
 .home {
   max-width: 1200px;
-  /* margin: 0 auto; */
 }
 
 
@@ -15,43 +17,54 @@
   justify-content: center;
   text-align: center;
   height: 80vh;
-  
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 100px;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   text-align: left;
-
 }
 
 .hero h1 {
   font-size: 4rem;
-  margin-bottom: 10px;
+  margin-bottom: -60px;
   font-weight: 600;
 }
 
 .hero h2 {
   font-size: 1.3rem;
-  margin-bottom: 10px;
-  text-align: left;
+  margin-bottom: -10px;
+  text-align: center;
 }
 
 .hero p {
   font-size: 1.1rem;
-  margin-bottom: 30px;
-  max-width: 660px;
- }
-
+  margin-bottom: 40px;
+  max-width: 700px;
+  text-align: center;
+}
 .cta-button {
+  text-decoration: none;
   font-size: 1.2rem;
-  background-color: #848484;
+  background-image: linear-gradient(to bottom, #848484, #6b6b6b);
   color: #fff;
-  padding: 10px 40px;
-  border-radius: 5px;
+  padding: 12px 40px;
+  border-radius: 40px; /* Rounder edges */
   border: none;
   cursor: pointer;
-  transition: 0.3s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  transition: all 0.3s ease; /* Transition for all properties */
 }
 
 .cta-button:hover {
-  background-color: #363636;
+  background-image: linear-gradient(to bottom, #6b6b6b, #535353); /* Slightly darker gradient */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3); /* Increase shadow on hover */
+  transform: translateY(-3px); /* Slight upward movement on hover */
+}
+
+.cta-button:active {
+  background-image: linear-gradient(to bottom, #535353, #6b6b6b); /* Invert gradient on active */
+  box-shadow: 0 2px 4px rgba(139, 139, 139, 0.2); /* Reduce shadow on active */
+  transform: translateY(3px); /* Slight downward movement on active */
 }

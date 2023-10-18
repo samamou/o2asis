@@ -1,66 +1,113 @@
 import React from 'react';
 import P5 from 'react-p5';
 
-// SensorDataSketch component receives sensor data and visualizes it using p5.js
-export default function SensorDataSketch({ sensorData }) {
-  // Calculate the number of sensors and the angle increment for positioning
-  const numSensors = Object.keys(sensorData).length;
-  const angleIncrement = 360 / numSensors;
-  let time = 0;
-
-  // Setup function initializes the p5.js sketch
+export default function AirQualitySketch({ sensorData }) {
   const setup = (p, canvasParentRef) => {
-    p.createCanvas(500, 500, p.WEBGL).parent(canvasParentRef);
+    p.createCanvas(500, 500).parent(canvasParentRef);
     p.colorMode(p.HSB, 360, 100, 100);
     p.noStroke();
+    p.textAlign(p.CENTER, p.CENTER);
+    p.textSize(17);
   };
 
-  // Rotation angle for the camera
-  let rotationAngle = 100;
+  const getColorForSensorValue = (sensorName, value) => {
+    // Define color ranges (green, yellow, red) for different sensor types
+    const colorRanges = {
+      ftTemp: { good: [0, 25], moderate: [25, 35], unhealthy: [35, Infinity] },
+      gbHum: { good: [30, 60], moderate: [15, 30], unhealthy: [0, 15] },
+      gbTemp: { good: [18, 24], moderate: [24, 30], unhealthy: [30, Infinity] },
+      Moist: { good: [300, 700], moderate: [100, 300], unhealthy: [700, Infinity] },
+      pH: { good: [6, 7.5], moderate: [4, 6], unhealthy: [7.5, 10] },
+    };
 
-  // Draw function renders the visualization
+    const range = colorRanges[sensorName];
+    if (!range) return [0, 0, 100]; // Default color (white) if sensor not defined
+
+    if (value >= range.good[0] && value <= range.good[1]) return [120, 50, 90];
+    if (value >= range.moderate[0] && value <= range.moderate[1]) return [60, 50, 90];
+    return [0, 50, 90];
+  };
+
   const draw = (p) => {
-    // Set background color and ambient light
-    p.background('rgba(255,255,255, 0)');
-    p.ambientLight(60);
+    p.clear(); // Transparent background
 
+    // Filter out invalid sensor values
+    const filteredSensorData = Object.entries(sensorData).filter(
+      ([key, value]) => value !== -1 && value !== -127
+    );
 
-    // Set camera position and orientation
-    p.camera(50, 50, 1000, 0, 0, 0, 0, 1, 0);
+    // Calculate starting xPos and yOffset to center the sketch
+    const xOffset = 100;
+    const xPosStart = (p.width - (filteredSensorData.length - 1) * xOffset) / 2.5;
+    const yPos = p.height / 4;
 
-    // Rotate the sketch around the Y-axis
-    p.rotateY(p.radians(rotationAngle));
+    let xPos = xPosStart;
+    filteredSensorData.forEach(([sensorName, value]) => {
+      const color = getColorForSensorValue(sensorName, value);
+      const r = 50;
 
-    // If sensor data is available, render the visualization
-    if (sensorData) {
-      let angle = 0;
+      // Draw the circle with a 3D effect using radial gradient shading
+      p.push();
+      p.noStroke();
+      for (let i = r; i > 0; i -= 2) {
+        const gradientColor = p.color(...color, (i / r) * 255);
+        p.fill(gradientColor);
+        p.ellipse(xPos, yPos, i);
+      }
+      p.pop();
 
-      // Iterate through each sensor value and create a floating orb for each
-      Object.entries(sensorData).forEach(([key, value]) => {
-        // Calculate the position, size, and color of the orb based on the sensor value
-        const radius = p.map(value, 0, 100, 50, 200);
-        const x = radius * p.cos(p.radians(angle)) + p.map(p.noise(time + angle * 0.1), 0, 1, -10, 10);
-        const y = radius * p.sin(p.radians(angle)) + p.map(p.noise(time + angle * 0.1 + 1000), 0, 1, -10, 10);
-        const z = p.map(value, 0, 100, -100, 100) + p.map(p.noise(time + angle * 0.1 + 2000), 0, 1, -10, 10);
-        const sphereSize = p.map(value, 0, 100, 15, 40);
-        const hue = p.map(value, 0, 60, 0, 120);
-
-        // Draw the orb
-        p.push();
-        p.translate(x, y, z);
-        p.specularMaterial(hue, 100, 100); // Use specularMaterial for a glossy appearance
-        p.sphere(sphereSize);
-        p.pop();
-
-        // Increment the angle for the next orb
-        angle += angleIncrement;
-      });
-    }
-
-    // Update the rotation angle and time
-    rotationAngle += 0.3;
-    time += 0.03;
+      // Draw the sensor name below the circle
+      p.push();
+      p.fill(0, 0, 0); // Text color (black)
+      p.text(sensorName, xPos, yPos + 50); // Draw sensor name centered below the circle
+      p.pop();
+      xPos += xOffset; // Space between circles
+    });
   };
 
   return <P5 setup={setup} draw={draw} />;
 }
+
+
+
+
+// old sketch: 
+
+// import React from 'react';
+// import P5 from 'react-p5';
+
+// export default function SensorDataSketch({ sensorData }) {
+//   const setup = (p, canvasParentRef) => {
+//     p.createCanvas(1500, 500).parent(canvasParentRef);
+//   };
+
+//   const draw = (p) => {
+//     p.background(255);
+
+//     if (sensorData) {
+//       let xPos = 30;
+//       const yPos = p.height / 2;
+
+//       const values = Object.values(sensorData);
+//       const minValue = Math.min(...values);
+//       const maxValue = Math.max(...values);
+//       const circleSizeMultiplier = 5;
+
+//       p.textSize(16);
+//       p.noStroke();
+
+//       Object.entries(sensorData).forEach(([key, value]) => {
+//         const circleSize = value * circleSizeMultiplier;
+//         p.fill(100);
+//         p.text(key, xPos, yPos - circleSize / 2 - 10);
+
+//         p.fill(0, 100, 200, 150);
+//         p.ellipse(xPos, yPos, circleSize, circleSize);
+
+//         xPos += circleSize + 30;
+//       });
+//     }
+//   };
+
+//   return <P5 setup={setup} draw={draw} />;
+// }

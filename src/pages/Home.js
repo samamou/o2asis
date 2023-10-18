@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
 import Features from '../components/Features';
@@ -13,12 +14,11 @@ function Home() {
       {/* <Hero /> */}
       <div class="hero">
         <h1>Discover o₂asis</h1>
-        <h2>Your personal indoor air quality monitoring and improvement solution</h2>
-        <p>Experience a healthier living space with o₂asis, an interactive web app that 
-          combines sensors from TeleAgriculture Kit with real-time data visualization and tailored 
-          recommendations. Take charge of your indoor environment.</p>
-          
-        <button class="cta-button" onclick="location.href='dashboard.html'">Get started</button>
+        <h2> Your Indoor Air Quality Companion</h2>
+        <p>Tracking air quality in real-time using TeleAgriculture Kit 
+          sensors and offering
+           personalized tips for a healthier home. Discover the joy of fresh air with o₂asis. </p>
+        <Link to="/dashboard" className="cta-button">Get started</Link>
     </div>
 
 
